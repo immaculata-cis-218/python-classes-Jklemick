@@ -4,7 +4,6 @@ Week 8 Lab
 Module containing Vehicle class
 '''
 
-
 class Vehicle:
     '''Vehicle class'''
 
@@ -23,6 +22,26 @@ class Vehicle:
         if self._horsepower <= 170:
             return 'Midsize Vehicle'
         return 'Fullsize Vehicle'
+
+    def __repr__(self):
+        '''Function to get printable representation'''
+        return 'Vehicle with' + str(self._horsepower) + 'horsepower'
+
+    def __str__(self):
+        '''Function to get string'''
+        return 'Vehicle with' + str(self._horsepower) + 'horsepower'
+
+    def __eq__(self, other):
+        '''Function to get if Vehicle equals other'''
+        return self._horsepower == other._horsepower
+
+    def __lt__(self, other):
+        '''Function to get if Vehicle is less than other'''
+        return self._horsepower < other._horsepower
+
+    def __gt__(self, other):
+        '''Function to get if Vehicle is greater than other'''
+        return self._horsepower > other._horsepower 
 
 class Car(Vehicle):
     '''Car class'''
@@ -120,7 +139,32 @@ def test_truck():
     assert truck6.get_horsepower() == 200
     assert truck6.get_classification() == 'Fullsize 4x4 Truck'
 
+def test_vehicle_dunder():
+    '''Test Vehicle dunder methods'''
+    vehicle1 = Vehicle(100)
+    vehicle2 = Vehicle(150)
+    vehicle3 = Vehicle(200)
+    assert repr(vehicle1) == 'Vehicle with 100 horsepower'
+    assert repr(vehicle2) == 'Vehicle with 150 horsepower'
+    assert repr(vehicle3) == 'Vehicle with 200 horsepower'
+    assert str(vehicle1) == 'Vehicle with 100 horsepower'
+    assert str(vehicle2) == 'Vehicle with 150 horsepower'
+    assert str(vehicle3) == 'Vehicle with 200 horsepower'
+    assert vehicle1 != vehicle2
+    assert vehicle1 != vehicle3
+    assert vehicle2 != vehicle1
+    assert vehicle2 != vehicle1
+    assert vehicle3 != vehicle1
+    assert vehicle3 != vehicle2
+    assert vehicle1 < vehicle2
+    assert vehicle1 < vehicle3
+    assert vehicle2 > vehicle1
+    assert vehicle2 < vehicle3
+    assert vehicle3 > vehicle1
+    assert vehicle3 > vehicle2
+
 if __name__ == 'main':
     test_vehicle()
     test_car()
     test_truck()
+    test_vehicle_dunder()
